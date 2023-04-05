@@ -7,12 +7,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gtxserv01/ui/home.dart';
+import 'package:gtxserv01/entities/user.dart';
+import 'package:gtxserv01/ui/users_list.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(Home());
+    await tester.pumpWidget(UserList(User(
+        id: null,
+        email: null,
+        password: null,
+        role: Rol.student,
+        status: StatusUser.pending)));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
