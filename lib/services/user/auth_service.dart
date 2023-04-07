@@ -10,7 +10,7 @@ import 'package:isar/isar.dart';
 class AuthService extends GetxController {
   late Future<Isar> db;
   AuthService() {
-    db = openDB();
+    db = openIsarDB();
   }
 
   final Rxn<User?> _currentUser = Rxn<User?>(null);

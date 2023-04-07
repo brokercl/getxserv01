@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gtxserv01/main.dart';
 import 'package:gtxserv01/services/user/auth_service.dart';
 import 'package:gtxserv01/services/user/user_service.dart';
 import 'package:gtxserv01/utils.dart';

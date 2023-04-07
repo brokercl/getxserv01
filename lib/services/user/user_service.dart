@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gtxserv01/entities/user.dart';
+import 'package:gtxserv01/main.dart';
 import 'package:gtxserv01/services/user/auth_service.dart';
 import 'package:gtxserv01/utils.dart';
 import 'package:isar/isar.dart';
@@ -20,7 +21,7 @@ class UserService extends GetxController with StateMixin<RxList<User>> {
   late Future<Isar> db;
 
   UserService() {
-    db = openDB();
+    db = openIsarDB();
   }
 
 // same Future<Isar> openDB() is used by AuthService

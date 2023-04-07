@@ -1,23 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gtxserv01/entities/course.dart';
-import 'package:gtxserv01/entities/note.dart';
-import 'package:gtxserv01/entities/payment.dart';
 import 'package:gtxserv01/entities/user.dart';
 import 'package:gtxserv01/services/user/auth_service.dart';
-import 'package:isar/isar.dart';
 
 final authService = Get.find<AuthService>();
-
-Future<Isar> openDB() async {
-  if (Isar.instanceNames.isEmpty) {
-    return await Isar.open(
-      [UserSchema, CourseSchema, NoteSchema, PaymentSchema],
-      inspector: true,
-    );
-  }
-  return Future.value(Isar.getInstance());
-}
+final loginFormKey = GlobalKey<FormState>();
 
 enum FindByUserField {
   id,

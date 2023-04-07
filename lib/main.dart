@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gtxserv01/entities/course.dart';
+import 'package:gtxserv01/entities/note.dart';
+import 'package:gtxserv01/entities/payment.dart';
+import 'package:gtxserv01/entities/user.dart';
 import 'package:gtxserv01/services/user/auth_service.dart';
 import 'package:gtxserv01/forms/login_form.dart';
 import 'package:gtxserv01/services/course/course_service.dart';
 import 'package:gtxserv01/services/user/user_service.dart';
 import 'package:gtxserv01/ui/home.dart';
-
-final loginFormKey = GlobalKey<FormState>();
+import 'package:isar/isar.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  openIsarDB();
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
@@ -42,4 +46,14 @@ Future<void> main() async {
       ),
     ],
   ));
+}
+
+Future<Isar> openIsarDB() async {
+  if (Isar.instanceNames.isEmpty) {
+    return await Isar.open(
+      [UserSchema, CourseSchema, NoteSchema, PaymentSchema],
+      inspector: true,
+    );
+  }
+  return Future.value(Isar.getInstance());
 }

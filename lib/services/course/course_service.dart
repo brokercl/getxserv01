@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gtxserv01/entities/course.dart';
+import 'package:gtxserv01/main.dart';
 import 'package:gtxserv01/services/user/auth_service.dart';
 import 'package:gtxserv01/utils.dart';
 import 'package:isar/isar.dart';
@@ -20,7 +21,7 @@ class CourseService extends GetxController with StateMixin<RxList<Course>> {
   late Future<Isar> db;
 
   CourseService() {
-    db = openDB();
+    db = openIsarDB();
   }
 
   final authService = Get.find<AuthService>();
