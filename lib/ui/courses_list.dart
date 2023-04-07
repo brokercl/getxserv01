@@ -172,70 +172,74 @@ listCourses(CourseService courseService, List<Course>? courses) {
       itemCount: courses.length,
       itemBuilder: (context, i) {
         return Container(
-          height: 90,
+          height: 190,
           color: setDialogBackgroundColorByCourseStatus(courses[i].status),
-          child: Dismissible(
-            key: Key(courses[i].id.toString()),
-            direction: DismissDirection.startToEnd,
-            background: Container(
-              color: Colors.red,
-              child: const Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 16.0),
-                  child: Icon(
-                    Icons.delete,
-                    color: Colors.white,
+          child: currentUser!.role == Rol.admin ||
+                  currentUser!.role == Rol.manager
+              ? Dismissible(
+                  key: Key(courses[i].id.toString()),
+                  direction: DismissDirection.startToEnd,
+                  background: Container(
+                    color: Colors.red,
+                    child: const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 16.0),
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-            onDismissed: (direction) {
-              courseService.fisicDdeleteCourseFromDDBB(courses[i]);
-              Get.snackbar(
-                snackPosition: SnackPosition.BOTTOM,
-                "Course ${courses[i].topic} eliminado..",
-                "..",
-              );
-            },
-            child: GestureDetector(
-              onTap: () => Get.defaultDialog(
-                backgroundColor:
-                    setDialogBackgroundColorByCourseStatus(courses[i].status),
-                title:
-                    '${currentUser!.role} ${StringActionFormButton.update.name}',
-                content: CourseForm(
-                  buttonTitle: StringActionFormButton.update.name,
+                  onDismissed: (direction) {
+                    courseService.fisicDdeleteCourseFromDDBB(courses[i]);
+                    Get.snackbar(
+                      snackPosition: SnackPosition.BOTTOM,
+                      "Course ${courses[i].topic} eliminado..",
+                      "..",
+                    );
+                  },
+                  child: GestureDetector(
+                      onTap: () => Get.defaultDialog(
+                            backgroundColor:
+                                setDialogBackgroundColorByCourseStatus(
+                                    courses[i].status),
+                            title:
+                                '${currentUser!.role} ${StringActionFormButton.update.name}',
+                            content: CourseForm(
+                              buttonTitle: StringActionFormButton.update.name,
 
-                  /// es de vital importancia tener en cuenta que
-                  /// user_form.dart se comportara dependiendo del
-                  /// valor enum StringActionFormButton {
-                  ///  create,
-                  ///  update,
-                  ///  }
+                              /// es de vital importancia tener en cuenta que
+                              /// user_form.dart se comportara dependiendo del
+                              /// valor enum StringActionFormButton {
+                              ///  create,
+                              ///  update,
+                              ///  }
 
-                  selectedCourse: courses[i],
-                ),
-              ),
-              child: Card(
-                elevation: 9.0,
-                borderOnForeground: true,
-                child: IconButton(
-                    onPressed: () {},
-                    tooltip: courses[i].topic.name,
-                    // the image correspond to the topic course name of
-                    icon: Image.asset(
-                        'images/courses/${courses[i].topic.name}.png')),
-                // title: Text(courses[i].topic.name),
-                // subtitle: Text('id ${courses[i].id!.toString()}'),
-                // trailing: Column(
-                //   children: [
-                //     Text(courses[i].status.name.toString()),
-                //   ],
-                // ),
-              ),
-            ),
-          ),
+                              selectedCourse: courses[i],
+                            ),
+                          ),
+                      child: card(courses[i])))
+              : card(courses[i]),
         );
       })));
 }
+
+card(Course courses) => Card(
+      elevation: 9.0,
+      child: IconButton(
+          onPressed: () {},
+          tooltip: courses.topic.name,
+          // the image correspond to the topic course name of
+          icon: Image.asset(
+            'images/courses/${courses.topic.name}.png',
+          )),
+      // title: Text(courses[i].topic.name),
+      // subtitle: Text('id ${courses[i].id!.toString()}'),
+      // trailing: Column(
+      //   children: [
+      //     Text(courses[i].status.name.toString()),
+      //   ],
+      // ),
+    );
