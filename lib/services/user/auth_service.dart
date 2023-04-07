@@ -36,7 +36,7 @@ class AuthService extends GetxController {
 
     if (currentUser != null && currentUser?.password == password) {
       currentUser!.role == Rol.admin || currentUser!.role == Rol.manager
-          ? Get.to(() => UserList(currentUser!))
+          ? Get.to(() => UserList())
           : Get.to(
               () => CourseList(currentUser!)); // success login, Go to Home..
     } else {

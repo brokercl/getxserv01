@@ -61,10 +61,16 @@ const UserSchema = CollectionSchema(
     )
   },
   links: {
-    r'student': LinkSchema(
-      id: 2682242204171908350,
-      name: r'student',
+    r'studentCourses': LinkSchema(
+      id: 6027503349670177103,
+      name: r'studentCourses',
       target: r'Course',
+      single: false,
+    ),
+    r'studentNotes': LinkSchema(
+      id: -1222516758474997552,
+      name: r'studentNotes',
+      target: r'Note',
       single: false,
     ),
     r'teacher': LinkSchema(
@@ -159,6 +165,8 @@ const _UserroleEnumValueMap = {
   'tutor': 2,
   'teacher': 3,
   'student': 4,
+  'commerce': 5,
+  'utp': 6,
 };
 const _UserroleValueEnumMap = {
   0: Rol.admin,
@@ -166,6 +174,8 @@ const _UserroleValueEnumMap = {
   2: Rol.tutor,
   3: Rol.teacher,
   4: Rol.student,
+  5: Rol.commerce,
+  6: Rol.utp,
 };
 const _UserstatusEnumValueMap = {
   'active': 0,
@@ -185,12 +195,15 @@ Id _userGetId(User object) {
 }
 
 List<IsarLinkBase<dynamic>> _userGetLinks(User object) {
-  return [object.student, object.teacher];
+  return [object.studentCourses, object.studentNotes, object.teacher];
 }
 
 void _userAttach(IsarCollection<dynamic> col, Id id, User object) {
   object.id = id;
-  object.student.attach(col, col.isar.collection<Course>(), r'student', id);
+  object.studentCourses
+      .attach(col, col.isar.collection<Course>(), r'studentCourses', id);
+  object.studentNotes
+      .attach(col, col.isar.collection<Note>(), r'studentNotes', id);
   object.teacher.attach(col, col.isar.collection<Course>(), r'teacher', id);
 }
 
@@ -952,51 +965,52 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
 extension UserQueryObject on QueryBuilder<User, User, QFilterCondition> {}
 
 extension UserQueryLinks on QueryBuilder<User, User, QFilterCondition> {
-  QueryBuilder<User, User, QAfterFilterCondition> student(
+  QueryBuilder<User, User, QAfterFilterCondition> studentCourses(
       FilterQuery<Course> q) {
     return QueryBuilder.apply(this, (query) {
-      return query.link(q, r'student');
+      return query.link(q, r'studentCourses');
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> studentLengthEqualTo(
+  QueryBuilder<User, User, QAfterFilterCondition> studentCoursesLengthEqualTo(
       int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.linkLength(r'student', length, true, length, true);
+      return query.linkLength(r'studentCourses', length, true, length, true);
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> studentIsEmpty() {
+  QueryBuilder<User, User, QAfterFilterCondition> studentCoursesIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.linkLength(r'student', 0, true, 0, true);
+      return query.linkLength(r'studentCourses', 0, true, 0, true);
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> studentIsNotEmpty() {
+  QueryBuilder<User, User, QAfterFilterCondition> studentCoursesIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.linkLength(r'student', 0, false, 999999, true);
+      return query.linkLength(r'studentCourses', 0, false, 999999, true);
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> studentLengthLessThan(
+  QueryBuilder<User, User, QAfterFilterCondition> studentCoursesLengthLessThan(
     int length, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.linkLength(r'student', 0, true, length, include);
+      return query.linkLength(r'studentCourses', 0, true, length, include);
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> studentLengthGreaterThan(
+  QueryBuilder<User, User, QAfterFilterCondition>
+      studentCoursesLengthGreaterThan(
     int length, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.linkLength(r'student', length, include, 999999, true);
+      return query.linkLength(r'studentCourses', length, include, 999999, true);
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> studentLengthBetween(
+  QueryBuilder<User, User, QAfterFilterCondition> studentCoursesLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -1004,7 +1018,63 @@ extension UserQueryLinks on QueryBuilder<User, User, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.linkLength(
-          r'student', lower, includeLower, upper, includeUpper);
+          r'studentCourses', lower, includeLower, upper, includeUpper);
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> studentNotes(
+      FilterQuery<Note> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.link(q, r'studentNotes');
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> studentNotesLengthEqualTo(
+      int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'studentNotes', length, true, length, true);
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> studentNotesIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'studentNotes', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> studentNotesIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'studentNotes', 0, false, 999999, true);
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> studentNotesLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'studentNotes', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> studentNotesLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'studentNotes', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> studentNotesLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(
+          r'studentNotes', lower, includeLower, upper, includeUpper);
     });
   }
 

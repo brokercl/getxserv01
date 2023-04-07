@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gtxserv01/entities/user.dart';
 import 'package:gtxserv01/services/user/auth_service.dart';
-import 'package:gtxserv01/ui/users_list.dart';
 import 'package:gtxserv01/utils.dart';
 import 'package:isar/isar.dart';
 

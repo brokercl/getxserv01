@@ -1,4 +1,4 @@
-import 'package:gtxserv01/entities/payments.dart';
+import 'package:gtxserv01/entities/payment.dart';
 import 'package:gtxserv01/entities/user.dart';
 import 'package:isar/isar.dart';
 
@@ -9,19 +9,22 @@ class Course {
   Id? id; // you can also use id = null to auto increment
 
   @enumerated
-  TopicCourse topic = TopicCourse.programming;
+  TopicCourse topic = TopicCourse.dart;
 
   @enumerated
   StatusCourse status = StatusCourse.pending;
 
-  @Backlink(to: 'student')
-  final student = IsarLink<User>();
+  @Backlink(to: 'studentCourses')
+  final studentstudentCourses = IsarLink<User>();
+
+  @Backlink(to: 'studentNotes')
+  final studentNotes = IsarLink<User>();
 
   @Backlink(to: 'teacher')
   final teacher = IsarLink<User>();
 
   @Backlink(to: 'courseId')
-  final courseId = IsarLink<Payments>();
+  final courseId = IsarLink<Payment>();
 
   @enumerated
   final ModalClass modalClass;
@@ -50,12 +53,14 @@ enum ModalClass {
   mixClass,
 }
 
+// the images names has to match enum TopicCourse
+// so the icon course image can be load
 enum TopicCourse {
   science,
   math,
   history,
   literature,
-  programming,
+  dart,
 }
 
 enum StatusCourse {

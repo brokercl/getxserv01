@@ -1,4 +1,5 @@
 import 'package:gtxserv01/entities/course.dart';
+import 'package:gtxserv01/entities/note.dart';
 import 'package:isar/isar.dart';
 
 part 'user.g.dart';
@@ -20,7 +21,8 @@ class User {
   @enumerated
   Rol role = Rol.student;
 
-  final student = IsarLinks<Course>();
+  final studentCourses = IsarLinks<Course>();
+  final studentNotes = IsarLinks<Note>();
   final teacher = IsarLinks<Course>();
 
   @enumerated
@@ -35,15 +37,18 @@ class User {
   });
 }
 
+// the order of enum Rol match the Image Rol in app bar of each widget
+// dont change order of enum Rol
+// add new Roles at bottom of enum Rol
+// usercases roles
 enum Rol {
-  // usercases roles
   admin, // crud all except tutor pays
   manager, // crud over teachers and students
-  utp, // set schedule class
   tutor, // pay student courses
-  commerce, // set course cost
   teacher, // take courses as teacher to teach
   student, // take courses as student to learn
+  commerce, // set course cost
+  utp, // set schedule class
 }
 
 enum StatusUser {

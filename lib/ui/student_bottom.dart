@@ -13,8 +13,6 @@ class StudentBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double spaceBetweenBottomMenuItems =
-        400 / managerBottomCases.length; // width / No menu items
     return Container(
       height: 60,
       color: Colors.amber,
@@ -22,7 +20,7 @@ class StudentBottom extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: [
           SizedBox(
-              width: spaceBetweenBottomMenuItems,
+              width: withSizedBoxBottom,
               child: IconButton(
                 color: const Color.fromARGB(255, 33, 63, 184),
                 onPressed: () =>

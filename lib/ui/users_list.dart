@@ -8,19 +8,12 @@ import 'package:gtxserv01/ui/manager_bottom.dart';
 import 'package:gtxserv01/ui/student_bottom.dart';
 import 'package:gtxserv01/utils.dart';
 
-enum FindByUserField {
-  id,
-  email,
-  role,
-  status,
-}
-
 class UserList extends GetView<UserService> {
   final TextEditingController textEditingController = TextEditingController();
-  final User currentUser;
+  User? get currentUser => Get.find<AuthService>().currentUser;
   final userService = Get.find<UserService>();
 
-  UserList(this.currentUser, {super.key});
+  UserList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,25 +32,25 @@ class UserList extends GetView<UserService> {
             child: Image.asset(
               // the name of the image correspond to the user Role
               // admin, manager, tutor, teacher, student..
-              'images/${currentUser.role.name}.png',
+              'images/${currentUser!.role.name}.png',
               scale: 9.0,
             ),
             onTap: () => Get.defaultDialog(
-                title: 'email ${currentUser.email}',
+                title: 'email ${currentUser!.email}',
                 content: Text(
-                    'role ${currentUser.role.name} \n status ${currentUser.status.name}'),
+                    'role ${currentUser!.role.name} \n status ${currentUser!.status.name}'),
                 confirm: InkWell(
                     onTap: () => Get.back(),
                     child: Image.asset(
-                      'images/${currentUser.role.name}.png',
+                      'images/${currentUser!.role.name}.png',
                       scale: 9.0,
                     ))),
           ),
           actions: [
             Visibility(
-              visible: currentUser.role == Rol.admin ||
-                  currentUser.role == Rol.manager ||
-                  currentUser.role == Rol.tutor,
+              visible: currentUser!.role == Rol.admin ||
+                  currentUser!.role == Rol.manager ||
+                  currentUser!.role == Rol.tutor,
               child: Row(
                 children: [
                   SizedBox(

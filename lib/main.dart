@@ -21,18 +21,18 @@ Future<void> main() async {
       GetPage(
         name: '/login',
         page: () => LoginForm(),
-        binding: BindingsBuilder(
-          // BindingsBuilder evita Binding class
-          () {
-            Get.put(() => AuthService());
-          },
-        ),
       ),
       GetPage(
         name: '/home',
         page: () => const Home(),
         binding: BindingsBuilder(
           // BindingsBuilder evita Binding class
+          // on initialRoute: '/home', in this case
+          // load ALL service as lazyPut, this meangs
+          // the service will register buy only will be used when nedded
+          // fenix is for call service whenever is needed
+          // this way is like initService()
+          // but you can see inmediatley
           () {
             Get.lazyPut(() => AuthService(), fenix: true);
             Get.lazyPut(() => UserService(), fenix: true);

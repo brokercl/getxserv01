@@ -162,7 +162,7 @@ class CourseService extends GetxController with StateMixin<RxList<Course>> {
 
   @override
   void onInit() {
-    findCourses(FindByCourseField.topic, null, TopicCourse.programming,
+    findCourses(FindByCourseField.topic, null, TopicCourse.dart,
             StatusCourse.active)
         .then((courses) => change(courses, status: RxStatus.success()),
             onError: (e) => change(null, status: RxStatus.error(e.toString())));

@@ -19,7 +19,7 @@ class CourseList extends GetView<CourseService> {
 
   @override
   Widget build(BuildContext context) {
-    TopicCourse topicCourse = TopicCourse.programming;
+    TopicCourse topicCourse = TopicCourse.dart;
     StatusCourse statusCourse = StatusCourse.pending;
     Rx<FindByCourseField> findByCourseField = FindByCourseField.topic.obs;
     return Scaffold(
@@ -165,14 +165,17 @@ class CourseList extends GetView<CourseService> {
 }
 
 listCourses(CourseService courseService, List<Course>? courses) {
-  return Obx((() => ListView.builder(
-      itemCount: courses!.length,
+  return Obx((() => GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisExtent: 60, // control height of dismissible
+          crossAxisCount: courses!.length),
+      itemCount: courses.length,
       itemBuilder: (context, i) {
-        final course = courses[i];
         return Container(
+          height: 90,
           color: setDialogBackgroundColorByCourseStatus(courses[i].status),
           child: Dismissible(
-            key: Key(course.id.toString()),
+            key: Key(courses[i].id.toString()),
             direction: DismissDirection.startToEnd,
             background: Container(
               color: Colors.red,
@@ -214,14 +217,22 @@ listCourses(CourseService courseService, List<Course>? courses) {
                   selectedCourse: courses[i],
                 ),
               ),
-              child: ListTile(
-                title: Text(courses[i].topic.name),
-                subtitle: Text('id ${courses[i].id!.toString()}'),
-                trailing: Column(
-                  children: [
-                    Text(courses[i].status.name.toString()),
-                  ],
-                ),
+              child: Card(
+                elevation: 9.0,
+                borderOnForeground: true,
+                child: IconButton(
+                    onPressed: () {},
+                    tooltip: courses[i].topic.name,
+                    // the image correspond to the topic course name of
+                    icon: Image.asset(
+                        'images/courses/${courses[i].topic.name}.png')),
+                // title: Text(courses[i].topic.name),
+                // subtitle: Text('id ${courses[i].id!.toString()}'),
+                // trailing: Column(
+                //   children: [
+                //     Text(courses[i].status.name.toString()),
+                //   ],
+                // ),
               ),
             ),
           ),

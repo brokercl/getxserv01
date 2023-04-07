@@ -59,12 +59,19 @@ const CourseSchema = CollectionSchema(
   idName: r'id',
   indexes: {},
   links: {
-    r'student': LinkSchema(
-      id: -1324584650982897703,
-      name: r'student',
+    r'studentstudentCourses': LinkSchema(
+      id: -5076528477139951577,
+      name: r'studentstudentCourses',
       target: r'User',
       single: true,
-      linkName: r'student',
+      linkName: r'studentCourses',
+    ),
+    r'studentNotes': LinkSchema(
+      id: 1805981327832005648,
+      name: r'studentNotes',
+      target: r'User',
+      single: true,
+      linkName: r'studentNotes',
     ),
     r'teacher': LinkSchema(
       id: -8896419655504169737,
@@ -74,9 +81,9 @@ const CourseSchema = CollectionSchema(
       linkName: r'teacher',
     ),
     r'courseId': LinkSchema(
-      id: -6292570403141049349,
+      id: -1200356941616023520,
       name: r'courseId',
-      target: r'Payments',
+      target: r'Payment',
       single: true,
       linkName: r'courseId',
     )
@@ -200,14 +207,14 @@ const _CoursetopicEnumValueMap = {
   'math': 1,
   'history': 2,
   'literature': 3,
-  'programming': 4,
+  'dart': 4,
 };
 const _CoursetopicValueEnumMap = {
   0: TopicCourse.science,
   1: TopicCourse.math,
   2: TopicCourse.history,
   3: TopicCourse.literature,
-  4: TopicCourse.programming,
+  4: TopicCourse.dart,
 };
 
 Id _courseGetId(Course object) {
@@ -215,14 +222,22 @@ Id _courseGetId(Course object) {
 }
 
 List<IsarLinkBase<dynamic>> _courseGetLinks(Course object) {
-  return [object.student, object.teacher, object.courseId];
+  return [
+    object.studentstudentCourses,
+    object.studentNotes,
+    object.teacher,
+    object.courseId
+  ];
 }
 
 void _courseAttach(IsarCollection<dynamic> col, Id id, Course object) {
   object.id = id;
-  object.student.attach(col, col.isar.collection<User>(), r'student', id);
+  object.studentstudentCourses
+      .attach(col, col.isar.collection<User>(), r'studentstudentCourses', id);
+  object.studentNotes
+      .attach(col, col.isar.collection<User>(), r'studentNotes', id);
   object.teacher.attach(col, col.isar.collection<User>(), r'teacher', id);
-  object.courseId.attach(col, col.isar.collection<Payments>(), r'courseId', id);
+  object.courseId.attach(col, col.isar.collection<Payment>(), r'courseId', id);
 }
 
 extension CourseQueryWhereSort on QueryBuilder<Course, Course, QWhere> {
@@ -691,16 +706,30 @@ extension CourseQueryFilter on QueryBuilder<Course, Course, QFilterCondition> {
 extension CourseQueryObject on QueryBuilder<Course, Course, QFilterCondition> {}
 
 extension CourseQueryLinks on QueryBuilder<Course, Course, QFilterCondition> {
-  QueryBuilder<Course, Course, QAfterFilterCondition> student(
+  QueryBuilder<Course, Course, QAfterFilterCondition> studentstudentCourses(
       FilterQuery<User> q) {
     return QueryBuilder.apply(this, (query) {
-      return query.link(q, r'student');
+      return query.link(q, r'studentstudentCourses');
     });
   }
 
-  QueryBuilder<Course, Course, QAfterFilterCondition> studentIsNull() {
+  QueryBuilder<Course, Course, QAfterFilterCondition>
+      studentstudentCoursesIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.linkLength(r'student', 0, true, 0, true);
+      return query.linkLength(r'studentstudentCourses', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<Course, Course, QAfterFilterCondition> studentNotes(
+      FilterQuery<User> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.link(q, r'studentNotes');
+    });
+  }
+
+  QueryBuilder<Course, Course, QAfterFilterCondition> studentNotesIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'studentNotes', 0, true, 0, true);
     });
   }
 
@@ -718,7 +747,7 @@ extension CourseQueryLinks on QueryBuilder<Course, Course, QFilterCondition> {
   }
 
   QueryBuilder<Course, Course, QAfterFilterCondition> courseId(
-      FilterQuery<Payments> q) {
+      FilterQuery<Payment> q) {
     return QueryBuilder.apply(this, (query) {
       return query.link(q, r'courseId');
     });

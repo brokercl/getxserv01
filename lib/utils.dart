@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gtxserv01/entities/course.dart';
-import 'package:gtxserv01/entities/payments.dart';
+import 'package:gtxserv01/entities/note.dart';
+import 'package:gtxserv01/entities/payment.dart';
 import 'package:gtxserv01/entities/user.dart';
 import 'package:gtxserv01/services/user/auth_service.dart';
 import 'package:isar/isar.dart';
@@ -11,11 +12,18 @@ final authService = Get.find<AuthService>();
 Future<Isar> openDB() async {
   if (Isar.instanceNames.isEmpty) {
     return await Isar.open(
-      [UserSchema, CourseSchema, PaymentsSchema],
+      [UserSchema, CourseSchema, NoteSchema, PaymentSchema],
       inspector: true,
     );
   }
   return Future.value(Isar.getInstance());
+}
+
+enum FindByUserField {
+  id,
+  email,
+  role,
+  status,
 }
 
 enum StringActionFormButton {
@@ -29,15 +37,25 @@ enum FindByCourseField {
   status,
 }
 
+double withSizedBoxBottom = 60;
+
 capitalizedFirtsCharacter(String s) =>
     s.substring(0, 1).toUpperCase() + s.substring(1);
 
-final List<String> managerBottomCases = [
-  'create user',
-  'create course',
-  'list Users',
-  'list Courses',
-];
+// las siguientes listas trabajam como un map, pero son mas faciles de manipular
+// trabajan en el bottom del widget activando o desactivando botones
+// dependiendo de los clicks del user
+// ejemplo si pincha en payments, adduser and addCourse seran desactivados, etx
+// si pincha en addUser, solo ese boton, sera activado
+// si pincha en addUCourse, solo ese boton, sera activado
+
+RxList addUserBottom = [true, 'add user'].obs;
+RxList addCourseBottom = [true, 'add course'].obs;
+RxList listUsersBottom = [true, 'list Users'].obs;
+RxList listCoursesBottom = [true, 'list Courses'].obs;
+RxList paymentsBottom = [true, 'payments'].obs;
+RxList gridNetBottom = [true, 'Grid Net'].obs;
+
 final List<String> userBottomCases = [
   'take course',
 ];
