@@ -13,7 +13,11 @@ import 'package:isar/isar.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  openIsarDB();
+  try {
+    openIsarDB();
+  } catch (e) {
+    debugPrint(e.toString());
+  }
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
