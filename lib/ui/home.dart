@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gtxserv01/forms/login_form.dart';
+import 'package:gtxserv01/utils.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -8,6 +9,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         leading: IconButton(
             tooltip: 'login',
@@ -31,7 +33,7 @@ class Home extends StatelessWidget {
           ),
           child: Center(
             child: Image.asset(
-              'images/centro_informatico.png',
+              'images/informatic_center.png',
               width: 300,
               height: 300,
             ),

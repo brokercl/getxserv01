@@ -38,7 +38,7 @@ class CourseService extends GetxController with StateMixin<RxList<Course>> {
   RxList<Course>? courses = <Course>[].obs;
 
   RxInt cuotas = 1.obs;
-  var selectedSchedule = ScheduleClass.day.obs;
+  var selectedSchedule = ScheduleClass.morning.obs;
 
   void updateCuotas(int value) {
     cuotas.value = value; // Update the value of cuotas

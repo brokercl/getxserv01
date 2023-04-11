@@ -133,7 +133,7 @@ Course _courseDeserialize(
     numCuotas: reader.readLong(offsets[2]),
     scheduleClass:
         _CoursescheduleClassValueEnumMap[reader.readByteOrNull(offsets[3])] ??
-            ScheduleClass.day,
+            ScheduleClass.morning,
     status: _CoursestatusValueEnumMap[reader.readByteOrNull(offsets[4])] ??
         StatusCourse.active,
     topic: _CoursetopicValueEnumMap[reader.readByteOrNull(offsets[5])] ??
@@ -158,7 +158,7 @@ P _courseDeserializeProp<P>(
       return (reader.readLong(offset)) as P;
     case 3:
       return (_CoursescheduleClassValueEnumMap[reader.readByteOrNull(offset)] ??
-          ScheduleClass.day) as P;
+          ScheduleClass.morning) as P;
     case 4:
       return (_CoursestatusValueEnumMap[reader.readByteOrNull(offset)] ??
           StatusCourse.active) as P;
@@ -181,12 +181,12 @@ const _CoursemodalClassValueEnumMap = {
   2: ModalClass.mixClass,
 };
 const _CoursescheduleClassEnumValueMap = {
-  'day': 0,
+  'morning': 0,
   'afternoon': 1,
   'evening': 2,
 };
 const _CoursescheduleClassValueEnumMap = {
-  0: ScheduleClass.day,
+  0: ScheduleClass.morning,
   1: ScheduleClass.afternoon,
   2: ScheduleClass.evening,
 };

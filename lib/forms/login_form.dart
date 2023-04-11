@@ -17,7 +17,7 @@ class LoginForm extends GetView<UserService> {
     TextEditingController passwordController = TextEditingController();
     return Scaffold(
       appBar: AppBar(),
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

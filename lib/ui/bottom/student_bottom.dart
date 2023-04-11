@@ -4,7 +4,7 @@ import 'package:gtxserv01/forms/add_update_user_form.dart';
 import 'package:gtxserv01/entities/user.dart';
 import 'package:gtxserv01/services/user/auth_service.dart';
 
-import '../utils.dart';
+import '../../utils.dart';
 
 class StudentBottom extends StatelessWidget {
   final formKey = GlobalKey<FormState>();

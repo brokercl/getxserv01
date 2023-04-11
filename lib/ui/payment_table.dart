@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gtxserv01/entities/payment.dart';
-import 'package:gtxserv01/ui/manager_bottom.dart';
-import 'package:gtxserv01/ui/student_bottom.dart';
+import 'package:gtxserv01/ui/bottom/manager_bottom.dart';
+import 'package:gtxserv01/ui/bottom/student_bottom.dart';
+import 'package:gtxserv01/utils.dart';
 
 import '../entities/user.dart';
 import '../services/user/auth_service.dart';
@@ -17,6 +18,7 @@ class PaymentsTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(),
+        backgroundColor: backgroundColor,
         body: dataTable(payments),
         bottomNavigationBar: currentUser!.role == Rol.admin ||
                 currentUser!.role == Rol.manager

@@ -10,7 +10,7 @@ import 'package:gtxserv01/ui/courses_list.dart';
 import 'package:gtxserv01/ui/payment_table.dart';
 import 'package:gtxserv01/ui/users_list.dart';
 
-import '../utils.dart';
+import '../../utils.dart';
 
 User? get currentUser => Get.find<AuthService>().currentUser;
 
@@ -89,7 +89,7 @@ class ManagerBottom extends StatelessWidget {
                                         modalClass: ModalClass.mixClass,
                                         coursecost: 0,
                                         numCuotas: 12,
-                                        scheduleClass: ScheduleClass.day),
+                                        scheduleClass: ScheduleClass.morning),
                                   )),
                           tooltip: addCourseBottom[1],
                           icon: Image.asset('images/add_course.png'),

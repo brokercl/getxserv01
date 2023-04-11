@@ -6,6 +6,7 @@ import 'package:gtxserv01/services/user/auth_service.dart';
 
 final authService = Get.find<AuthService>();
 final loginFormKey = GlobalKey<FormState>();
+Color backgroundColor = const Color.fromARGB(255, 42, 67, 104);
 
 enum FindByUserField {
   id,
@@ -104,19 +105,6 @@ setEnabledBooleansByRol() {
       enableCourseCostTextEditing = false;
       break;
     default:
-  }
-}
-
-String getScheduleClassName(ScheduleClass scheduleClass) {
-  switch (scheduleClass) {
-    case ScheduleClass.day:
-      return 'Day';
-    case ScheduleClass.afternoon:
-      return 'Afternoon';
-    case ScheduleClass.evening:
-      return 'Evening';
-    default:
-      return '';
   }
 }
 

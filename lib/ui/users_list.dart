@@ -4,8 +4,8 @@ import 'package:gtxserv01/forms/add_update_user_form.dart';
 import 'package:gtxserv01/entities/user.dart';
 import 'package:gtxserv01/services/user/auth_service.dart';
 import 'package:gtxserv01/services/user/user_service.dart';
-import 'package:gtxserv01/ui/manager_bottom.dart';
-import 'package:gtxserv01/ui/student_bottom.dart';
+import 'package:gtxserv01/ui/bottom/manager_bottom.dart';
+import 'package:gtxserv01/ui/bottom/student_bottom.dart';
 import 'package:gtxserv01/utils.dart';
 
 class UserList extends GetView<UserService> {
@@ -156,6 +156,7 @@ class UserList extends GetView<UserService> {
             ),
           ],
         ),
+        backgroundColor: backgroundColor,
         body: controller.obx(
           (users) => listUsers(controller, users),
           onLoading: const Center(child: CircularProgressIndicator()),

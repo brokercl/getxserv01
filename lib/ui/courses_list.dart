@@ -5,8 +5,8 @@ import 'package:gtxserv01/forms/course_form.dart';
 import 'package:gtxserv01/entities/user.dart';
 import 'package:gtxserv01/services/user/auth_service.dart';
 import 'package:gtxserv01/services/course/course_service.dart';
-import 'package:gtxserv01/ui/manager_bottom.dart';
-import 'package:gtxserv01/ui/student_bottom.dart';
+import 'package:gtxserv01/ui/bottom/manager_bottom.dart';
+import 'package:gtxserv01/ui/bottom/student_bottom.dart';
 import 'package:gtxserv01/utils.dart';
 
 User? get currentUser => Get.find<AuthService>().currentUser;
@@ -150,6 +150,7 @@ class CourseList extends GetView<CourseService> {
             ),
           ],
         ),
+        backgroundColor: backgroundColor,
         body: controller.obx(
           (courses) => listCourses(controller, courses),
           onLoading: const Center(child: CircularProgressIndicator()),
@@ -226,20 +227,14 @@ listCourses(CourseService courseService, List<Course>? courses) {
       })));
 }
 
-card(Course courses) => Card(
+card(Course course) => Card(
       elevation: 9.0,
       child: IconButton(
-          onPressed: () {},
-          tooltip: courses.topic.name,
+          onPressed: () =>
+              print('asignar curso ${course.topic.name} a estudinte'),
+          tooltip: course.topic.name,
           // the image correspond to the topic course name of
           icon: Image.asset(
-            'images/courses/${courses.topic.name}.png',
+            'images/courses/${course.topic.name}.png',
           )),
-      // title: Text(courses[i].topic.name),
-      // subtitle: Text('id ${courses[i].id!.toString()}'),
-      // trailing: Column(
-      //   children: [
-      //     Text(courses[i].status.name.toString()),
-      //   ],
-      // ),
     );

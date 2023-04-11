@@ -45,7 +45,7 @@ class Course {
   });
 }
 
-enum ScheduleClass { day, afternoon, evening }
+enum ScheduleClass { morning, afternoon, evening }
 
 enum ModalClass {
   presencial,

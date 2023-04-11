@@ -100,7 +100,7 @@ class CourseForm extends StatelessWidget {
               atLeastOneFormFieldHasChanged = true;
             }, // save only changed fields..
             decoration: const InputDecoration(
-              labelText: 'Status',
+              labelText: 'Modal',
             ),
           ),
           TextFormField(
@@ -131,9 +131,22 @@ class CourseForm extends StatelessWidget {
           Obx(
             () => Column(
               children: [
-                Text(
-                  'Schedule Class: ${getScheduleClassName(courseService.selectedSchedule.value)}',
-                  style: const TextStyle(fontSize: 18.0),
+                Row(
+                  children: [
+                    Text(
+                      'Schedule Class: ${courseService.selectedSchedule.value.name}',
+                      style: const TextStyle(fontSize: 18.0),
+                    ),
+                    Image.asset(
+                      // image name must match
+                      // enum ScheduleClass { morning, afternoon, evening }
+                      // so using interpolation technique
+                      // its posible to automaticly show match image
+                      'images/${courseService.selectedSchedule.value.name}.png',
+                      width: 30,
+                      height: 30,
+                    ),
+                  ],
                 ),
                 Slider(
                   value: courseService.selectedSchedule.value.index.toDouble(),
@@ -144,8 +157,6 @@ class CourseForm extends StatelessWidget {
                         ScheduleClass.values[value.toInt()];
                   },
                   divisions: ScheduleClass.values.length - 1,
-                  label: getScheduleClassName(
-                      courseService.selectedSchedule.value),
                 ),
               ],
             ),
@@ -173,7 +184,7 @@ class CourseForm extends StatelessWidget {
                                   modalClass: ModalClass.mixClass,
                                   numCuotas: 12,
                                   coursecost: int.parse(courseCost.text),
-                                  scheduleClass: ScheduleClass.day))
+                                  scheduleClass: ScheduleClass.morning))
                           .then((ResponseCourseService responseService) {
                         responseService = responseService;
                         if (responseService.createUpdateResult) {
